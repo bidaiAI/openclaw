@@ -119,14 +119,12 @@ function resolveToolInputErrorStatus(err: unknown): number | null {
   }
   if (typeof err !== "object" || err === null || !("name" in err)) {
     return null;
-  
-    const name = (err as { name?: unknown }).name;
-    if (name === "ZodError") {
-          return 400;
-    }
-    
-    }
+  }
+
   const name = (err as { name?: unknown }).name;
+  if (name === "ZodError") {
+    return 400;
+  }
   if (name !== "ToolInputError" && name !== "ToolAuthorizationError") {
     return null;
   }
